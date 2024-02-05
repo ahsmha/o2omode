@@ -1,0 +1,673 @@
+{
+  "resource_version": 5,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "default",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "name": "address",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "country",
+                "using": {
+                  "foreign_key_constraint_on": "country_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "country",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "addresses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "country_id",
+                    "table": {
+                      "name": "address",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "order_line",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_item",
+                "using": {
+                  "foreign_key_constraint_on": "product_item_id"
+                }
+              },
+              {
+                "name": "shop_order",
+                "using": {
+                  "foreign_key_constraint_on": "order_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "user_reviews",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "ordered_product_id",
+                    "table": {
+                      "name": "user_review",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "order_status",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "shop_orders",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "order_status",
+                    "table": {
+                      "name": "shop_order",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "payment_type",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "user_payment_methods",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "payment_type_id",
+                    "table": {
+                      "name": "user_payment_method",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "product",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_category",
+                "using": {
+                  "foreign_key_constraint_on": "category_id"
+                }
+              },
+              {
+                "name": "site_user",
+                "using": {
+                  "foreign_key_constraint_on": "admin_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "product_items",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "product_id",
+                    "table": {
+                      "name": "product_item",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "product_category",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_category",
+                "using": {
+                  "foreign_key_constraint_on": "parent_category_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "product_categories",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "parent_category_id",
+                    "table": {
+                      "name": "product_category",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "products",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "category_id",
+                    "table": {
+                      "name": "product",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "promotion_categories",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "category_id",
+                    "table": {
+                      "name": "promotion_category",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "variations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "category_id",
+                    "table": {
+                      "name": "variation",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "product_configuration",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_item",
+                "using": {
+                  "foreign_key_constraint_on": "product_item_id"
+                }
+              },
+              {
+                "name": "variation_option",
+                "using": {
+                  "foreign_key_constraint_on": "variation_option_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "product_item",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product",
+                "using": {
+                  "foreign_key_constraint_on": "product_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "order_lines",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "product_item_id",
+                    "table": {
+                      "name": "order_line",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "product_configurations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "product_item_id",
+                    "table": {
+                      "name": "product_configuration",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "shopping_cart_items",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "product_item_id",
+                    "table": {
+                      "name": "shopping_cart_item",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "promotion",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "promotion_categories",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "promotion_id",
+                    "table": {
+                      "name": "promotion_category",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "promotion_category",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_category",
+                "using": {
+                  "foreign_key_constraint_on": "category_id"
+                }
+              },
+              {
+                "name": "promotion",
+                "using": {
+                  "foreign_key_constraint_on": "promotion_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "shipping_method",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "shop_orders",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "shipping_method",
+                    "table": {
+                      "name": "shop_order",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "shop_order",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "orderStatusByOrderStatus",
+                "using": {
+                  "foreign_key_constraint_on": "order_status"
+                }
+              },
+              {
+                "name": "shippingMethodByShippingMethod",
+                "using": {
+                  "foreign_key_constraint_on": "shipping_method"
+                }
+              },
+              {
+                "name": "site_user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              },
+              {
+                "name": "user_address",
+                "using": {
+                  "foreign_key_constraint_on": "shipping_address"
+                }
+              },
+              {
+                "name": "user_payment_method",
+                "using": {
+                  "foreign_key_constraint_on": "payment_method_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "order_lines",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "order_id",
+                    "table": {
+                      "name": "order_line",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "shopping_cart",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "site_user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "shopping_cart_items",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "cart_id",
+                    "table": {
+                      "name": "shopping_cart_item",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "shopping_cart_item",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_item",
+                "using": {
+                  "foreign_key_constraint_on": "product_item_id"
+                }
+              },
+              {
+                "name": "shopping_cart",
+                "using": {
+                  "foreign_key_constraint_on": "cart_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "site_user",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "products",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "admin_id",
+                    "table": {
+                      "name": "product",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "shop_orders",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "shop_order",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "shopping_carts",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "shopping_cart",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "user_payment_methods",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "user_payment_method",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "user_reviews",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "user_review",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_address",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "shop_orders",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "shipping_address",
+                    "table": {
+                      "name": "shop_order",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_payment_method",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "payment_type",
+                "using": {
+                  "foreign_key_constraint_on": "payment_type_id"
+                }
+              },
+              {
+                "name": "site_user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "shop_orders",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "payment_method_id",
+                    "table": {
+                      "name": "shop_order",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_review",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "order_line",
+                "using": {
+                  "foreign_key_constraint_on": "ordered_product_id"
+                }
+              },
+              {
+                "name": "site_user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "variation",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "product_category",
+                "using": {
+                  "foreign_key_constraint_on": "category_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "variation_options",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "variation_id",
+                    "table": {
+                      "name": "variation_option",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "buyer",
+                "permission": {
+                  "columns": [
+                    "category_id",
+                    "id",
+                    "name"
+                  ],
+                  "filter": {}
+                },
+                "comment": ""
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "variation_option",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "variation",
+                "using": {
+                  "foreign_key_constraint_on": "variation_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "product_configurations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "variation_option_id",
+                    "table": {
+                      "name": "product_configuration",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "database_url": {
+              "from_env": "PG_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "use_prepared_statements": false
+          }
+        }
+      }
+    ]
+  }
+}
